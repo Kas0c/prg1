@@ -1,0 +1,59 @@
+#include <iostream>
+
+using namespace std;
+
+struct Samochod {
+    char marka[30];
+    char model[30];
+    int rokProdukcji;
+};
+
+int main() {
+    int n; 
+
+    cout << "Podaj liczbe samochodow (maks. 10): ";
+    cin >> n;
+
+    if (n > 10) {
+        n = 10;
+        cout << "Liczba samochodow zostala ograniczona do 10.\n";
+    }
+
+    Samochod samochody[10];
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nSamochod #" << (i + 1) << ":\n";
+        cout << "Marka: ";
+        cin >> samochody[i].marka;
+        cout << "Model: ";
+        cin >> samochody[i].model;
+        cout << "Rok produkcji: ";
+        cin >> samochody[i].rokProdukcji;
+    }
+
+    cout << "\nWprowadzone samochody:\n";
+    for (int i = 0; i < n; i++) {
+        cout << samochody[i].marka << " " << samochody[i].model
+             << ", Rok produkcji: " << samochody[i].rokProdukcji << "\n";
+    }
+
+    int liczbaPo2000 = 0;
+    for (int i = 0; i < n; i++) {
+        if (samochody[i].rokProdukcji > 2000) {
+            liczbaPo2000++;
+        }
+    }
+    cout << "\nLiczba samochodow wyprodukowanych po roku 2000: " << liczbaPo2000 << "\n";
+
+    int indeksNajstarszego = 0;
+    for (int i = 1; i < n; i++) {
+        if (samochody[i].rokProdukcji < samochody[indeksNajstarszego].rokProdukcji) {
+            indeksNajstarszego = i;
+        }
+    }
+    cout << "Najstarszy samochod: " << samochody[indeksNajstarszego].marka
+         << " " << samochody[indeksNajstarszego].model
+         << ", Rok produkcji: " << samochody[indeksNajstarszego].rokProdukcji << "\n";
+
+    return 0;
+}
