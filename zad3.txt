@@ -1,174 +1,55 @@
 #include <iostream>
+
 using namespace std;
 
-int size = 100;
-
-void wypelnijTablice(int table[], int min, int max) {
-    for (int i = 0; i < size; i++) {
-        table[i] = min + (i * 7) % (max - min + 1);
-    }
-}
-
-void drukujTablice(int table[]) {
-    for (int i = 0; i < size; i++) {
-        cout << table[i] << " ";
-    }
-    cout << endl;
-}
-
-int liczbaWystapien(int table[], int element) {
-    int count = 0;
-    for (int i = 0; i < size; i++) {
-        if (table[i] == element) count++;
-    }
-    return count;
-}
-
-int liczbaNieparzystych(int table[]) {
-    int count = 0;
-    for (int i = 0; i < size; i++) {
-        if (table[i] % 2 != 0) count++;
-    }
-    return count;
-}
-
-void najmniejszyElement(int table[], int& minEl, int& minIn) {
-    minEl = table[0];
-    minIn = 0;
-    for (int i = 1; i < size; i++) {
-        if (table[i] < minEl) {
-            minEl = table[i];
-            minIn = i;
-        }
-    }
-}
-
-void najwiekszaParaSasiadow(int table[], int& ind1, int& ind2) {
-    int maxSum = table[0] + table[1];
-    ind1 = 0;
-    ind2 = 1;
-    for (int i = 1; i < size - 1; i++) {
-        int suma = table[i] + table[i + 1];
-        if (suma > maxSum) {
-            maxSum = suma;
-            ind1 = i;
-            ind2 = i + 1;
-        }
-    }
-}
-
-void drukujElement(int table[], int index) {
-    if (index >= 0 && index < size) {
-        cout << "Element pod indeksem " << index << " to " << table[index] << endl;
-    } else {
-        cout << "Nieprawidłowy indeks." << endl;
-    }
-}
-
-void zamienElementy(int table[], int index1, int index2) {
-    if (index1 >= 0 && index1 < size && index2 >= 0 && index2 < size) {
-        int temp = table[index1];
-        table[index1] = table[index2];
-        table[index2] = temp;
-        cout << "Zamieniono elementy pod indeksami " << index1 << " i " << index2 << endl;
-    } else {
-        cout << "Nieprawidłowe indeksy." << endl;
-    }
-}
-
-void drukujFragmentTablicy(int table[], int i, int j) {
-    if (i >= 0 && j < size && i <= j) {
-        for (int k = i; k <= j; k++) {
-            cout << table[k] << " ";
-        }
-        cout << endl;
-    } else {
-        cout << "Nieprawidłowe indeksy." << endl;
-    }
-}
+struct Student {
+    char imie[20];
+    char nazwisko[30];
+    char nr_indeksu[10];
+    double ocena;
+};
 
 int main() {
-    int table[size];
+    // Tworzymy tablicę studentów
+    Student grupa[10] = {
+        {"Jan", "Kowalski", "s14616", 0},
+        {"Anna", "Nowak", "s2137", 0},
+        {"Piotr", "Zieliński", "s12345", 0},
+        {"Kasia", "Wiśniewska", "s98765", 0},
+        {"Tomasz", "Adamski", "s45678", 0},
+        {"Maria", "Pawlak", "s54321", 0},
+        {"Adam", "Woźniak", "s67890", 0},
+        {"Ewa", "Jankowska", "s11223", 0},
+        {"Paweł", "Szymański", "s99887", 0},
+        {"Magdalena", "Król", "s33445", 0}
+    };
 
-    int min, max;
-    cout << "Minimalna wartosc zakresu: ";
-    cin >> min;
-    cout << "Maksymalna wartosc zakresu: ";
-    cin >> max;
+    double suma_ocen = 0.0;
 
-    wypelnijTablice(table, min, max);
-    cout << "Tablica: ";
-    drukujTablice(table);
+    // Pobieranie ocen dla każdego studenta
+    for (int i = 0; i < 10; i++) {
+        cout << "Podaj ocene dla " << grupa[i].imie << " " << grupa[i].nazwisko
+             << " (nr indeksu: " << grupa[i].nr_indeksu << "): ";
+        cin >> grupa[i].ocena;
 
-    int opcja;
-    do {
-        cout << "\nWybierz opcje:\n";
-        cout << "1. Liczba wystapien podanego elementu\n";
-        cout << "2. Liczba elementow nieparzystych\n";
-        cout << "3. Najmniejszy element i jego indeks\n";
-        cout << "4. Para sasiadujacych elementow o najwiekszej sumie\n";
-        cout << "5. Wydruk elementu pod wybranym indeksem\n";
-        cout << "6. Zamiana elementow pod wybranymi indeksami\n";
-        cout << "7. Wydruk fragmentu tablicy od i do podanych indeksow\n";
-        cout << "0. Wyjdz\n";
-        cout << "Wybierz opcje: ";
-        cin >> opcja;
-
-        switch (opcja) {
-            case 1: {
-                int element;
-                cout << "Element do zliczenia: ";
-                cin >> element;
-                cout << "Liczba wystapien: " << liczbaWystapien(table, element) << endl;
-                break;
-            }
-            case 2:
-                cout << "Liczba elementow nieparzystych: " << liczbaNieparzystych(table) << endl;
-                break;
-            case 3: {
-                int minEl, minIn;
-                najmniejszyElement(table, minEl, minIn);
-                cout << "Najmniejszy element to " << minEl << " na indeksie " << minIn << endl;
-                break;
-            }
-            case 4: {
-                int ind1, ind2;
-                najwiekszaParaSasiadow(table, ind1, ind2);
-                cout << "Para sasiadujacych elementow o najwiekszej sumie to " << table[ind1] << " i " << table[ind2] << endl;
-                break;
-            }
-            case 5: {
-                int index;
-                cout << "Indeks: ";
-                cin >> index;
-                drukujElement(table, index);
-                break;
-            }
-            case 6: {
-                int index1, index2;
-                cout << "Pierwszy index: ";
-                cin >> index1;
-                cout << "Drugi index: ";
-                cin >> index2;
-                zamienElementy(table, index1, index2);
-                break;
-            }
-            case 7: {
-                int i, j;
-                cout << "Poczatkowy index: ";
-                cin >> i;
-                cout << "Koncowy index: ";
-                cin >> j;
-                drukujFragmentTablicy(table, i, j);
-                break;
-            }
-            case 0:
-                cout << "Wylaczanie programu" << endl;
-                break;
-            default:
-                cout << "Nieprawidlowa opcja" << endl;
+        // Sprawdzenie poprawności oceny
+        while (grupa[i].ocena < 2.0 || grupa[i].ocena > 5.0) {
+            cout << "Nieprawidlowa ocena. Podaj ocene w zakresie 2.0 - 5.0: ";
+            cin >> grupa[i].ocena;
         }
-    } while (opcja != 0);
+
+        suma_ocen += grupa[i].ocena;
+    }
+
+    // Wyświetlenie ocen
+    cout << "\nZestawienie ocen:\n";
+    for (int i = 0; i < 10; i++) {
+        cout << grupa[i].nr_indeksu << ": " << grupa[i].ocena << "\n";
+    }
+
+    // Obliczenie i wyświetlenie średniej
+    double srednia = suma_ocen / 10;
+    cout << "\nSrednia ocen: " << srednia << "\n";
 
     return 0;
 }
