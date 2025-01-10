@@ -1,0 +1,50 @@
+#include <iostream>
+
+using namespace std;
+
+struct Student {
+    char imie[30];
+    char nazwisko[30];
+    char nr_indeksu[10];
+    float ocena;
+};
+
+int main() {
+    // Tworzymy tablicę 10 studentów
+    Student studenci[10] = {
+        {"Jan", "Kowalski", "s14616", 0.0},
+        {"Anna", "Nowak", "s2137", 0.0},
+        {"Piotr", "Zielinski", "s21513", 0.0},
+        {"Katarzyna", "Wójcik", "s18934", 0.0},
+        {"Marek", "Kamiński", "s17231", 0.0},
+        {"Ewa", "Szymańska", "s18432", 0.0},
+        {"Tomasz", "Lewandowski", "s14627", 0.0},
+        {"Magdalena", "Pawlak", "s13624", 0.0},
+        {"Jakub", "Jankowski", "s11231", 0.0},
+        {"Ola", "Piotrowska", "s12234", 0.0}
+    };
+
+    float suma = 0.0;  // Zmienna do obliczania sumy ocen
+    float srednia;     // Zmienna do przechowywania średniej ocen
+
+    // Pobieramy oceny dla każdego studenta
+    for (int i = 0; i < 10; i++) {
+        cout << "Podaj ocene dla studenta " << studenci[i].nr_indeksu << ": ";
+        cin >> studenci[i].ocena;
+        suma += studenci[i].ocena;
+    }
+
+    // Wyświetlamy zestawienie ocen
+    cout << "\nZestawienie ocen:" << endl;
+    for (int i = 0; i < 10; i++) {
+        cout << studenci[i].nr_indeksu << ": " << studenci[i].ocena << endl;
+    }
+
+    // Obliczamy średnią
+    srednia = suma / 10;
+
+    // Wyświetlamy średnią ocen
+    cout << "\nSrednia ocen: " << srednia << endl;
+
+    return 0;
+}
