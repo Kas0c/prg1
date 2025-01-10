@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cstring> // Do manipulacji łańcuchami znaków
+
+using namespace std;
+
+struct Samochod {
+    char marka[30];
+    char model[30];
+    int rokProdukcji;
+};
+
+int main() {
+    int n;  // Liczba samochodów
+    cout << "Podaj liczbe samochodow: ";
+    cin >> n;
+
+    // Tablica samochodów
+    Samochod samochody[n];
+
+    // Wczytywanie danych o samochodach
+    for (int i = 0; i < n; i++) {
+        cout << "\nPodaj dane dla samochodu " << i + 1 << ":\n";
+        cout << "Marka: ";
+        cin >> samochody[i].marka;
+        cout << "Model: ";
+        cin >> samochody[i].model;
+        cout << "Rok produkcji: ";
+        cin >> samochody[i].rokProdukcji;
+    }
+
+    // Wyświetlanie wszystkich samochodów
+    cout << "\nWprowadzone samochody:\n";
+    for (int i = 0; i < n; i++) {
+        cout << "Marka: " << samochody[i].marka << ", Model: " << samochody[i].model
+             << ", Rok produkcji: " << samochody[i].rokProdukcji << endl;
+    }
+
+    // Liczenie samochodów wyprodukowanych po roku 2000
+    int liczbaPo2000 = 0;
+    for (int i = 0; i < n; i++) {
+        if (samochody[i].rokProdukcji > 2000) {
+            liczbaPo2000++;
+        }
+    }
+    cout << "\nLiczba samochodow wyprodukowanych po roku 2000: " << liczbaPo2000 << endl;
+
+    // Znajdowanie najstarszego samochodu
+    int najstarszyIndex = 0;
+    for (int i = 1; i < n; i++) {
+        if (samochody[i].rokProdukcji < samochody[najstarszyIndex].rokProdukcji) {
+            najstarszyIndex = i;
+        }
+    }
+
+    cout << "\nNajstarszy samochod to: " << samochody[najstarszyIndex].marka
+         << " " << samochody[najstarszyIndex].model
+         << ", rok produkcji: " << samochody[najstarszyIndex].rokProdukcji << endl;
+
+    return 0;
+}
